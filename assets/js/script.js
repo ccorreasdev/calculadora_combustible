@@ -26,8 +26,8 @@ buttonGo.addEventListener("click", async (e) => {
 
     pathData = await calculateDistance(startCoords.lat, startCoords.lng, endCoords.lat, endCoords.lng);
 
-    pathDistance.innerHTML = `${pathData.distances / 1000} kilometros`;
-    pathTime.innerHTML = `${pathData.durations / 60} minutos`
+    pathDistance.innerHTML = `${(pathData.distances / 1000).toFixed(2)} kilometros`;
+    pathTime.innerHTML = `${(pathData.durations / 60).toFixed(2)} minutos`
 
     const stations = await getFuelPrices();
     const stationsList = stations.ListaEESSPrecio;
@@ -46,7 +46,7 @@ buttonGo.addEventListener("click", async (e) => {
     console.log(parseFloat(station[0]["Precio Gasoleo A"]));
 
     const fuelPrice = ((pathData.distances / 1000) * 4 / 100) * parseFloat(station[0]["Precio Gasoleo A"].replace(",", "."));
-    pathPrice.innerHTML = fuelPrice + "€";
+    pathPrice.innerHTML = fuelPrice.toFixed(2) + " €";
 
 
 })
