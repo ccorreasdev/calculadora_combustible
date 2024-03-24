@@ -12,6 +12,24 @@ const pathPrice = document.querySelector("#path-price");
 
 buttonGo.addEventListener("click", async (e) => {
 
+    pathTime.innerHTML = ` <div class="loading">
+    <div class="loading__dot-1"></div>
+    <div class="loading__dot-2"></div>
+    <div class="loading__dot-3"></div>
+</div>`;
+
+    pathDistance.innerHTML = ` <div class="loading">
+    <div class="loading__dot-1"></div>
+    <div class="loading__dot-2"></div>
+    <div class="loading__dot-3"></div>
+</div>`;
+
+    pathPrice.innerHTML = ` <div class="loading">
+    <div class="loading__dot-1"></div>
+    <div class="loading__dot-2"></div>
+    <div class="loading__dot-3"></div>
+</div>`;
+
     const startPath = startInput.value;
     const endPath = endInput.value;
 

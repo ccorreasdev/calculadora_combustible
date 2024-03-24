@@ -197,6 +197,45 @@ html {
   color: #8f8f8f;
 }
 
+.loading {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loading__dot-1,
+.loading__dot-2,
+.loading__dot-3 {
+  width: 5px;
+  height: 5px;
+  background-color: #343434;
+}
+
+.loading__dot-1 {
+  animation: loadingDot 2s infinite;
+}
+
+.loading__dot-2 {
+  animation: loadingDot 2s 200ms infinite;
+}
+
+.loading__dot-3 {
+  animation: loadingDot 2s 400ms infinite;
+}
+
+@keyframes loadingDot {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 950px) {
   .location__layout {
     height: 450px;
