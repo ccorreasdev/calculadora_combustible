@@ -9,62 +9,94 @@ const endCoord = document.querySelector("#end-coord");
 const pathDistance = document.querySelector("#path-distance");
 const pathTime = document.querySelector("#path-time");
 const pathPrice = document.querySelector("#path-price");
+const locationLayout = document.querySelector("#location-layout");
+const fuelGasoleo = document.querySelector("#fuel-gasoleo");
+const fuelGasolina = document.querySelector("#fuel-gasolina")
+
+
+fuelGasoleo.addEventListener("click", (e) => {
+    fuelGasoleo.classList.add("fuel--active");
+    fuelGasolina.classList.remove("fuel--active");
+});
+
+fuelGasolina.addEventListener("click", (e) => {
+    fuelGasoleo.classList.remove("fuel--active");
+    fuelGasolina.classList.add("fuel--active");
+});
 
 buttonGo.addEventListener("click", async (e) => {
-
-    pathTime.innerHTML = ` <div class="loading">
-    <div class="loading__dot-1"></div>
-    <div class="loading__dot-2"></div>
-    <div class="loading__dot-3"></div>
-</div>`;
-
-    pathDistance.innerHTML = ` <div class="loading">
-    <div class="loading__dot-1"></div>
-    <div class="loading__dot-2"></div>
-    <div class="loading__dot-3"></div>
-</div>`;
-
-    pathPrice.innerHTML = ` <div class="loading">
-    <div class="loading__dot-1"></div>
-    <div class="loading__dot-2"></div>
-    <div class="loading__dot-3"></div>
-</div>`;
 
     const startPath = startInput.value;
     const endPath = endInput.value;
 
-    console.log(startPath, endPath);
+    if (startPath && endPath) {
 
-    const startCoords = await getGeocode(startPath);
-    const endCoords = await getGeocode(endPath);
+        locationLayout.classList.remove("location__layout");
+        locationLayout.classList.add("location__layout--ok");
 
-    startCoord.innerHTML = `${startCoords.lat} , ${startCoords.lng}`;
-    endCoord.innerHTML = `${endCoords.lat} , ${endCoords.lng}`;
-    console.log(startCoords);
+        startInput.classList.remove("input--error");
+        endInput.classList.remove("input--error");
 
-    pathData = await calculateDistance(startCoords.lat, startCoords.lng, endCoords.lat, endCoords.lng);
+        pathTime.innerHTML = ` <div class="loading">
+        <div class="loading__dot-1"></div>
+        <div class="loading__dot-2"></div>
+        <div class="loading__dot-3"></div>
+    </div>`;
 
-    pathDistance.innerHTML = `${(pathData.distances / 1000).toFixed(2)} kilometros`;
-    pathTime.innerHTML = `${(pathData.durations / 60).toFixed(2)} minutos`
+        pathDistance.innerHTML = ` <div class="loading">
+        <div class="loading__dot-1"></div>
+        <div class="loading__dot-2"></div>
+        <div class="loading__dot-3"></div>
+    </div>`;
 
-    const stations = await getFuelPrices();
-    const stationsList = stations.ListaEESSPrecio;
+        pathPrice.innerHTML = ` <div class="loading">
+        <div class="loading__dot-1"></div>
+        <div class="loading__dot-2"></div>
+        <div class="loading__dot-3"></div>
+    </div>`;
 
-    console.log(stationsList);
+        console.log(startPath, endPath);
 
-    const station = stationsList.filter((station) => {
-        if (station["C.P."] == "03670") {
-            console.log(station);
-            return station;
-        }
+        const startCoords = await getGeocode(startPath);
+        const endCoords = await getGeocode(endPath);
 
-    })
+        startCoord.innerHTML = `${startCoords.lat} , ${startCoords.lng}`;
+        endCoord.innerHTML = `${endCoords.lat} , ${endCoords.lng}`;
+        console.log(startCoords);
 
-    console.log(station)
-    console.log(parseFloat(station[0]["Precio Gasoleo A"]));
+        pathData = await calculateDistance(startCoords.lat, startCoords.lng, endCoords.lat, endCoords.lng);
 
-    const fuelPrice = ((pathData.distances / 1000) * 4 / 100) * parseFloat(station[0]["Precio Gasoleo A"].replace(",", "."));
-    pathPrice.innerHTML = fuelPrice.toFixed(2) + " €";
+        pathDistance.innerHTML = `${(pathData.distances / 1000).toFixed(2)} kilometros`;
+        pathTime.innerHTML = `${(pathData.durations / 60).toFixed(2)} minutos`
+
+        const stations = await getFuelPrices();
+        const stationsList = stations.ListaEESSPrecio;
+
+        console.log(stationsList);
+
+        const station = stationsList.filter((station) => {
+            if (station["C.P."] == "03670") {
+                console.log(station);
+                return station;
+            }
+
+        })
+
+        console.log(station)
+        console.log(parseFloat(station[0]["Precio Gasoleo A"]));
+
+        const fuelPrice = ((pathData.distances / 1000) * 4 / 100) * parseFloat(station[0]["Precio Gasoleo A"].replace(",", "."));
+        pathPrice.innerHTML = fuelPrice.toFixed(2) + " €";
+
+    } else {
+        startInput.classList.add("input--error");
+        endInput.classList.add("input--error");
+
+        locationLayout.classList.add("location__layout");
+        locationLayout.classList.remove("location__layout--ok");
+    }
+
+
 
 
 })

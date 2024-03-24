@@ -33,13 +33,14 @@ html {
 
 .layout {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(0deg, var(--bg-color-2), var(--bg-color-1));
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  padding: 2rem;
 }
 
 .layout__title {
@@ -49,9 +50,9 @@ html {
 }
 
 .location__layout {
-  width: 90%;
+  width: 100%;
   border-radius: 20px;
-  height: 300px;
+  height: calc(100dvh - 4rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,11 +65,28 @@ html {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
+.location__layout--ok {
+  width: 100%;
+  border-radius: 20px;
+  height: calc(100dvh - 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background-image: url("../img/path_ok.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
 .start__input {
   width: 250px;
   height: 40px;
   font-size: 1.8rem;
   text-align: center;
+  transition: all 300ms ease-in-out;
 }
 
 .end__input {
@@ -76,17 +94,46 @@ html {
   height: 40px;
   font-size: 1.8rem;
   text-align: center;
+  transition: all 300ms ease-in-out;
+}
+
+.input--error {
+  background-color: #c51717;
+  color: white;
 }
 
 .button__go {
   width: 250px;
-  height: 40px;
-  background-color: #0b7dcb;
+  height: 80px;
+  background: linear-gradient(90deg, white, #0b7dcb);
   border: none;
   color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   font-size: 2rem;
   cursor: pointer;
-  border: solid 2px white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  transition: all 300ms ease-in-out;
+  border: solid 3px black;
+}
+
+.button__go:hover {
+  border: solid 3px white;
+  color: black;
+}
+
+.button__img-container {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+
+.button__img {
+  width: 100%;
+  height: 100%;
 }
 
 .location__img {
@@ -108,6 +155,41 @@ html {
   display: flex;
   flex-direction: row;
   gap: 2rem;
+}
+
+.location__middle {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.fuel__gasoleo,
+.fuel__gasolina {
+  width: 200px;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  opacity: 0.75;
+  border: solid 4px transparent;
+}
+
+.fuel__gasoleo:hover,
+.fuel__gasolina:hover {
+  border: solid 4px rgba(67, 217, 255, 1);
+}
+
+.fuel--active {
+  box-shadow: 0px 0px 10px 5px rgba(67, 217, 255, 0.75);
+  opacity: 1;
 }
 
 .path__layout {

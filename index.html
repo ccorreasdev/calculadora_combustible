@@ -11,7 +11,7 @@
 
 <body>
     <main class="layout">
-        <section class="location__layout">
+        <section id="location-layout" class="location__layout">
             <div class="location__top">
                 <div class="start__location">
                     <input id="start-input" class="start__input" type="text">
@@ -22,26 +22,29 @@
                     <div id="end-coord" class="location__coord">-</div>
                 </div>
                 <div class="go__location">
-                    <button id="button-go" class="button__go">GO!</button>
+
+                    <button id="button-go" class="button__go">GO!<div class="button__img-container">
+                            <img class="button__img" src="./assets/img/destination.png" alt="destination">
+                        </div></button>
                 </div>
+            </div>
+
+            <div class="location__middle">
+                <div id="fuel-gasoleo" class="fuel__gasoleo fuel--active">Gasoleo</div>
+                <div id="fuel-gasolina" class="fuel__gasolina">Gasolina</div>
             </div>
 
             <div class="location__bottom">
                 <section class="card__layout">
-                    <!-- <div class="loading">
-                        <div class="loading__dot-1"></div>
-                        <div class="loading__dot-2"></div>
-                        <div class="loading__dot-3"></div>
-                    </div> -->
                     <div class="card__top">
                         <div class="card__img-container">
                             <img class="card__img" src="./assets/img/car.png" alt="car">
                         </div>
-                        <div id="path-time" class="card__time">35 min</div>
+                        <div id="path-time" class="card__time">- min</div>
                     </div>
                     <div class="card__bottom">
-                        <div id="path-price" class="card__distance">20€</div>
-                        <div id="path-distance" class="card__distance">180 km</div>
+                        <div id="path-price" class="card__distance"> - €</div>
+                        <div id="path-distance" class="card__distance">- km</div>
                     </div>
                 </section>
             </div>
