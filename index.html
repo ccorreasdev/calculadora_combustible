@@ -11,7 +11,36 @@
 
 <body>
     <main class="layout">
-        <h1 class="layout__title">WEB TEMPLATE</h1>
+        <section class="location__layout">
+            <!-- <img class="location__img" src="assets/img/path.png" alt="path"> -->
+            <div class="start__location">
+                <input id="start-input" class="start__input" type="text">
+                <div id="start-coord" class="location__coord">-</div>
+            </div>
+            <div class="end__location">
+                <input id="end-input" class="end__input" type="text">
+                <div id="end-coord" class="location__coord">-</div>
+            </div>
+            <div class="go__location">
+                <button id="button-go" class="button__go">GO!</button>
+            </div>
+        </section>
+
+        <section class="path__layout">
+            <div class="path__distance">
+                <div class="distance__title">Distancia:</div>
+                <div id="path-distance" class="distance__info"></div>
+            </div>
+            <div class="path__time">
+                <div class="distance__title">Tiempo:</div>
+                <div id="path-time" class="time__info"></div>
+            </div>
+            <div class="path__time">
+                <div class="distance__title">Precio:</div>
+                <div id="path-price" class="time__info"></div>
+            </div>
+        </section>
+        <!-- <h1 class="layout__title">WEB TEMPLATE</h1> -->
     </main>
 </body>
 
