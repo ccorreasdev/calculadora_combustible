@@ -13,6 +13,7 @@ const locationLayout = document.querySelector("#location-layout");
 const fuelGasoleo = document.querySelector("#fuel-gasoleo");
 const fuelGasolina = document.querySelector("#fuel-gasolina")
 const fuelConsumo = document.querySelector("#consumo");
+const pathRoute = document.querySelector("#path-route");
 
 
 fuelGasoleo.addEventListener("click", (e) => {
@@ -33,8 +34,8 @@ buttonGo.addEventListener("click", async (e) => {
 
     if (startPath && endPath) {
 
-        locationLayout.classList.remove("location__layout");
-        locationLayout.classList.add("location__layout--ok");
+        pathRoute.classList.add("layout__img-container-route");
+        pathRoute.classList.remove("hide");
 
         startInput.classList.remove("input--error");
         endInput.classList.remove("input--error");
@@ -69,7 +70,13 @@ buttonGo.addEventListener("click", async (e) => {
         pathData = await calculateDistance(startCoords.lat, startCoords.lng, endCoords.lat, endCoords.lng);
 
         pathDistance.innerHTML = `${(pathData.distances / 1000).toFixed(2)} kilometros`;
-        pathTime.innerHTML = `${(pathData.durations / 60).toFixed(2)} minutos`
+
+        if (((pathData.durations / 60) / 60).toFixed(0) > 0) {
+            pathTime.innerHTML = `${((pathData.durations / 60) / 60).toFixed(0)} horas ${((pathData.durations / 60) % 60).toFixed(0)} minutos`;
+        } else {
+            pathTime.innerHTML = `${((pathData.durations / 60) % 60).toFixed(0)} minutos`;
+        }
+
 
         const stations = await getFuelPrices();
         const stationsList = stations.ListaEESSPrecio;

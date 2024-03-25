@@ -41,6 +41,42 @@ html {
   align-items: center;
   gap: 1rem;
   padding: 2rem;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.layout__img-container {
+  width: 100%;
+  height: 100%;
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  z-index: 2;
+  padding: 4rem;
+}
+
+.layout__img-container-route {
+  width: 100%;
+  height: 100%;
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  z-index: 2;
+  padding: 4rem;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  animation: barrido 5s ease-in-out both;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.layout__img {
+  width: 80%;
+  height: 70%;
 }
 
 .layout__title {
@@ -58,7 +94,7 @@ html {
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  background-image: url("../img/path.png");
+  /* background-image: url("../img/path.png"); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -345,6 +381,21 @@ html {
   .location__top {
     flex-direction: column;
   }
+
+  .layout__img {
+    width: 70%;
+    height: 50%;
+  }
+
+  .layout__img-container {
+    top: 20%;
+    left: 15%;
+  }
+
+  .layout__img-container-route {
+    top: 20%;
+    left: 15%;
+  }
 }
 
 @media (max-width: 512px) {
@@ -360,4 +411,59 @@ html {
   .fuel__gasolina {
     width: 250px;
   }
+
+  .layout__img {
+    width: 100%;
+    height: 25%;
+  }
+
+  .layout__img-container {
+    top: 20%;
+    left: 0%;
+  }
+
+  .layout__img-container-route {
+    top: 20%;
+    left: 0%;
+  }
+}
+
+.contenedor {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.elemento {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  animation: barrido 2s linear infinite;
+}
+
+@keyframes barrido {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+#location-layout {
+  /* clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  animation: barrido 2s linear infinite; */
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.location__layout--animate {
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  animation: barrido 2s linear both;
 }
