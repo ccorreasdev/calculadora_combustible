@@ -12,6 +12,7 @@ const pathPrice = document.querySelector("#path-price");
 const locationLayout = document.querySelector("#location-layout");
 const fuelGasoleo = document.querySelector("#fuel-gasoleo");
 const fuelGasolina = document.querySelector("#fuel-gasolina")
+const fuelConsumo = document.querySelector("#consumo");
 
 
 fuelGasoleo.addEventListener("click", (e) => {
@@ -28,6 +29,7 @@ buttonGo.addEventListener("click", async (e) => {
 
     const startPath = startInput.value;
     const endPath = endInput.value;
+    const consumo = fuelConsumo.value;
 
     if (startPath && endPath) {
 
@@ -85,7 +87,13 @@ buttonGo.addEventListener("click", async (e) => {
         console.log(station)
         console.log(parseFloat(station[0]["Precio Gasoleo A"]));
 
-        const fuelPrice = ((pathData.distances / 1000) * 4 / 100) * parseFloat(station[0]["Precio Gasoleo A"].replace(",", "."));
+        if (fuelGasoleo.classList.contains("fuel--active")) {
+            fuelSelected = "Precio Gasoleo A";
+        } else {
+            fuelSelected = "Precio Gasolina 95 E5";
+        }
+
+        const fuelPrice = ((pathData.distances / 1000) * consumo / 100) * parseFloat(station[0][fuelSelected].replace(",", "."));
         pathPrice.innerHTML = fuelPrice.toFixed(2) + " €";
 
     } else {
