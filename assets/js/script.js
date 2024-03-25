@@ -88,7 +88,7 @@ buttonGo.addEventListener("click", async (e) => {
 
 
         const stations = await getFuelPrices();
-        const stationsList = stations.ListaEESSPrecio;
+        const stationsList = stations;
 
         console.log(stationsList);
 
@@ -127,7 +127,8 @@ buttonGo.addEventListener("click", async (e) => {
 
 const getFuelPrices = async () => {
     console.log("GET FUEL PRICES")
-    const url = `https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/`;
+    //const url = `https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/`;
+    const url = "./assets/js/EstacionesTerrestres.json"
     const options = {
         method: 'GET',
         headers: {
@@ -138,7 +139,10 @@ const getFuelPrices = async () => {
     try {
         const response = await fetch(url);
         const jsonResponse = await response.json();
-        return jsonResponse;
+        //await createFileJSON(jsonResponse);
+        //return jsonResponse;
+        console.log(jsonResponse["PreciosEESSTerrestres"]["ListaEESSPrecio"]["EESSPrecio"]);
+        return jsonResponse["PreciosEESSTerrestres"]["ListaEESSPrecio"]["EESSPrecio"];
     } catch (error) {
         console.error(error);
     }
@@ -188,3 +192,18 @@ const getGeocode = async (address) => {
     }
 }
 
+
+const createFileJSON = async (jsonData) => {
+    let blob = new BlobEvent([jsonData], { type: "applicantion/json" });
+
+    let fileURL = URL.createObjectURL(blob);
+
+    let downloadLink = document.createElement("a");
+
+    downloadLink.href = fileURL;
+    downloadLink.download = "fuelStations.json";
+    downloadLink.innerText = "Descargar archivo";
+
+    document.body.appendChild(downloadLink);
+
+}
