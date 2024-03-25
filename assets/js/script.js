@@ -34,8 +34,14 @@ buttonGo.addEventListener("click", async (e) => {
 
     if (startPath && endPath) {
 
-        pathRoute.classList.add("layout__img-container-route");
-        pathRoute.classList.remove("hide");
+        pathRoute.classList.remove("layout__img-container-route");
+        pathRoute.classList.add("hide");
+
+        setTimeout(() => {
+            pathRoute.classList.add("layout__img-container-route");
+            pathRoute.classList.remove("hide");
+        }, 10);
+
 
         startInput.classList.remove("input--error");
         endInput.classList.remove("input--error");
@@ -63,11 +69,14 @@ buttonGo.addEventListener("click", async (e) => {
         const startCoords = await getGeocode(startPath);
         const endCoords = await getGeocode(endPath);
 
-        startCoord.innerHTML = `${startCoords.lat} , ${startCoords.lng}`;
-        endCoord.innerHTML = `${endCoords.lat} , ${endCoords.lng}`;
+        // startCoord.innerHTML = `${startCoords.location.lat} , ${startCoords.location.lng}`;
+        // endCoord.innerHTML = `${endCoords.location.lat} , ${endCoords.location.lng}`;
+
+        startCoord.innerHTML = `${startCoords.address}`;
+        endCoord.innerHTML = `${endCoords.address}`;
         console.log(startCoords);
 
-        pathData = await calculateDistance(startCoords.lat, startCoords.lng, endCoords.lat, endCoords.lng);
+        pathData = await calculateDistance(startCoords.location.lat, startCoords.location.lng, endCoords.location.lat, endCoords.location.lng);
 
         pathDistance.innerHTML = `${(pathData.distances / 1000).toFixed(2)} kilometros`;
 
@@ -173,7 +182,7 @@ const getGeocode = async (address) => {
         const result = await response.text();
         const jsonResult = await JSON.parse(result)
         console.log(jsonResult.results[0]);
-        return jsonResult.results[0].location;
+        return jsonResult.results[0];
     } catch (error) {
         console.error(error);
     }
