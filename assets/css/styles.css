@@ -52,7 +52,7 @@ html {
 .location__layout {
   width: 100%;
   border-radius: 20px;
-  height: calc(100dvh - 4rem);
+  min-height: calc(100dvh - 4rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -63,12 +63,13 @@ html {
   background-repeat: no-repeat;
   background-size: contain;
   background-color: rgba(0, 0, 0, 0.25);
+  padding: 2rem;
 }
 
 .location__layout--ok {
   width: 100%;
   border-radius: 20px;
-  height: calc(100dvh - 4rem);
+  min-height: calc(100dvh - 4rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,6 +80,7 @@ html {
   background-repeat: no-repeat;
   background-size: contain;
   background-color: rgba(0, 0, 0, 0.25);
+  padding: 2rem;
 }
 
 .start__input {
@@ -320,7 +322,6 @@ html {
 
 @media (max-width: 950px) {
   .location__layout {
-    height: 450px;
   }
 
   .location__top {
