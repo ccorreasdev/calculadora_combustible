@@ -14,10 +14,12 @@
         <section id="location-layout" class="location__layout">
             <div class="location__top">
                 <div class="start__location">
+                    <div class="location__coord">Origen</div>
                     <input id="start-input" class="start__input" type="text">
                     <div id="start-coord" class="location__coord">-</div>
                 </div>
                 <div class="end__location">
+                    <div id="end-coord" class="location__coord">Destino</div>
                     <input id="end-input" class="end__input" type="text">
                     <div id="end-coord" class="location__coord">-</div>
                 </div>
@@ -30,16 +32,20 @@
             </div>
 
             <div class="location__middle">
-                <div id="fuel-gasoleo" class="fuel__gasoleo fuel--active">Gasoleo</div>
-                <div id="fuel-gasolina" class="fuel__gasolina">Gasolina</div>
+                <div class="location__middle__title">Combustible</div>
+                <div class="fuel__selection">
+                    <div id="fuel-gasoleo" class="fuel__gasoleo fuel--active">Gasoleo</div>
+                    <div id="fuel-gasolina" class="fuel__gasolina">Gasolina</div>
+                </div>
             </div>
 
             <div class="location__middle-2">
-                <div id="end-coord" class="location__coord">Litros/100KM</div>
+                <div class="location__coord">Litros/100KM</div>
                 <input id="consumo" class="end__input" type="number" value="4.0" min="0.5" max="50.0">
             </div>
 
             <div class="location__bottom">
+                <div class="location__coord">Información</div>
                 <section class="card__layout">
                     <div class="card__top">
                         <div class="card__img-container">
