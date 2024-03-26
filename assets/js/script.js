@@ -241,6 +241,11 @@ const generateMap = (lat1, lng1, lat2, lng2, locality1, locality2) => {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    let startPoint = [lat1, lng1];
+    let endPoint = [lat2, lng2];
+
+    L.polyline([startPoint, endPoint], { color: "blue" }).addTo(map);
+
     map.fitBounds([[lat1, lng1], [lat2, lng2]]);
 
     marker1 = L.marker([latExample, lngExample]).addTo(map);
