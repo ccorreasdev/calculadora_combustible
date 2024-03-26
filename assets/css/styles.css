@@ -451,6 +451,7 @@ html {
   justify-content: start;
   align-items: center;
   min-height: calc(100vh - 8rem);
+  z-index: 2;
 }
 
 .map {
@@ -466,6 +467,65 @@ html {
   background-color: rgba(0, 0, 0, 0.25);
   padding: 1rem;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.map__stations {
+  width: 100%;
+  height: calc(100% - 4rem);
+}
+
+.fuel__icon-container {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.fuel__icon {
+  width: 100%;
+  height: 100%;
+  transition: all 300ms ease-in-out;
+}
+
+.fuel__icon:hover {
+  filter: invert(100%);
+}
+
+.stations__layout {
+  width: 100%;
+  height: 100%;
+  background-color: #343434;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 20px;
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 300ms ease-in-out;
+  padding: 2rem;
+}
+
+.stations__layout--active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.close__window {
+  width: 25px;
+  height: 25px;
+  background-color: #c51717;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.close__window:hover {
+  background-color: #841010;
 }
 
 @media (max-width: 950px) {

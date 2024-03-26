@@ -15,12 +15,58 @@ const fuelGasolina = document.querySelector("#fuel-gasolina")
 const fuelConsumo = document.querySelector("#consumo");
 const pathRoute = document.querySelector("#path-route");
 const mapLayout = document.querySelector("#map");
+const map2Layout = document.querySelector("#map-2");
+const fuelIcon = document.querySelector("#fuel-icon");
+const stationsLayout = document.querySelector("#stations-layout");
+const closeWindow = document.querySelector("#close-window");
+
 let map = L.map('map').setView([40.416748, -3.703786], 6);
+let map2 = L.map('map-2').setView([40.416748, -3.703786], 6);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map2);
+
+
+
+const loadFuelStations = async () => {
+    const fuelStations = await getFuelPrices();
+
+    console.log("AQUI:", fuelStations)
+
+    // fuelStations.forEach((station) => {
+    //     L.marker([station["Latitud"].replace(",", "."), station["Longitud (WGS84)"].replace(",", ".")]).addTo(map2);
+    // });
+
+
+
+    for (let i = 0; i < fuelStations.length; i++) {
+        // setTimeout(() => {
+        //     L.marker([fuelStations[i]["Latitud"].replace(",", "."), fuelStations[i]["Longitud (WGS84)"].replace(",", ".")]).addTo(map2);
+        // }, 10 * i)
+
+        if (fuelStations[i]["Provincia"] === "ALICANTE") {
+            L.marker([fuelStations[i]["Latitud"].replace(",", "."), fuelStations[i]["Longitud (WGS84)"].replace(",", ".")]).addTo(map2);
+        }
+
+    }
+}
+
+closeWindow.addEventListener("click", async (e) => {
+    stationsLayout.classList.remove("stations__layout--active");
+});
+
+fuelIcon.addEventListener("click", async (e) => {
+    await loadFuelStations();
+    stationsLayout.classList.toggle("stations__layout--active");
+
+});
 
 fuelGasoleo.addEventListener("click", (e) => {
     fuelGasoleo.classList.add("fuel--active");
