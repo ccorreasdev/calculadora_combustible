@@ -14,6 +14,8 @@ const fuelGasoleo = document.querySelector("#fuel-gasoleo");
 const fuelGasolina = document.querySelector("#fuel-gasolina")
 const fuelConsumo = document.querySelector("#consumo");
 const pathRoute = document.querySelector("#path-route");
+const mapLayout = document.querySelector("#map");
+let map = L.map('map');
 
 
 fuelGasoleo.addEventListener("click", (e) => {
@@ -68,6 +70,8 @@ buttonGo.addEventListener("click", async (e) => {
 
         const startCoords = await getGeocode(startPath);
         const endCoords = await getGeocode(endPath);
+
+        generateMap(startCoords.location.lat, startCoords.location.lng, endCoords.location.lat, endCoords.location.lng, startCoords.locality, endCoords.locality);
 
         // startCoord.innerHTML = `${startCoords.location.lat} , ${startCoords.location.lng}`;
         // endCoord.innerHTML = `${endCoords.location.lat} , ${endCoords.location.lng}`;
@@ -207,3 +211,40 @@ const createFileJSON = async (jsonData) => {
     document.body.appendChild(downloadLink);
 
 }
+
+const generateMap = (lat1, lng1, lat2, lng2, locality1, locality2) => {
+
+    let latExample = lat1;
+    let lngExample = lng1;
+    let latExample2 = lat2;
+    let lngExample2 = lng2;
+    let marker1;
+    let marker2;
+
+
+    map.eachLayer(function (layer) {
+        layer.remove();
+    });
+
+    // let latExample = 36.721282;
+    // let lngExample = -4.421287;
+    // let latExample2 = 43.463661;
+    // let lngExample2 = -3.822621;
+
+    let meanLat = (latExample + latExample2) / 2;
+    let meanLng = (lngExample + lngExample2) / 2;
+
+    map.setView([meanLat, meanLng], 10);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    map.fitBounds([[lat1, lng1], [lat2, lng2]]);
+
+    marker1 = L.marker([latExample, lngExample]).addTo(map);
+    marker2 = L.marker([latExample2, lngExample2]).addTo(map);
+
+}
+

@@ -87,8 +87,7 @@ html {
 
 .location__layout {
   width: 100%;
-  border-radius: 20px;
-  min-height: calc(100dvh - 4rem);
+  min-height: calc(100dvh - 8rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -98,7 +97,6 @@ html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  background-color: rgba(0, 0, 0, 0.25);
   padding: 2rem;
 }
 
@@ -385,6 +383,85 @@ html {
   }
 }
 
+.contenedor {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.elemento {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  animation: barrido 2s linear infinite;
+}
+
+@keyframes barrido {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+#location-layout {
+  /* clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  animation: barrido 2s linear infinite; */
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.location__layout--animate {
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  animation: barrido 2s linear both;
+}
+
+.main__layout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+}
+
+.left__layout {
+}
+
+.right__layout {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.map {
+  width: 500px;
+  height: 500px;
+}
+
+.map__title {
+  width: 100%;
+  height: 40px;
+  font-size: 1.6rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+  text-align: center;
+}
+
 @media (max-width: 950px) {
   .location__layout {
   }
@@ -437,44 +514,4 @@ html {
     top: 20%;
     left: 0%;
   }
-}
-
-.contenedor {
-  position: relative;
-  width: 300px;
-  height: 200px;
-  overflow: hidden;
-}
-
-.elemento {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.25);
-  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-  animation: barrido 2s linear infinite;
-}
-
-@keyframes barrido {
-  0% {
-    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-  }
-  100% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-
-#location-layout {
-  /* clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-  animation: barrido 2s linear infinite; */
-  position: relative;
-  overflow: hidden;
-  z-index: 2;
-}
-
-.location__layout--animate {
-  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-  animation: barrido 2s linear both;
 }

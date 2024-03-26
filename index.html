@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="stylesheet" href="./assets/js/leaflet/leaflet.css">
+    <script defer src="./assets/js/leaflet/leaflet.js"></script>
     <script defer src="./assets/js/script.js"></script>
     <title>Calculadora combustible</title>
 </head>
 
 <body>
     <main class="layout">
+
         <div class="layout__img-container">
             <img class="layout__img" src="./assets/img/path_points.png" alt="background-points">
         </div>
@@ -18,57 +21,66 @@
             <img class="layout__img" src="./assets/img/path_route.png" alt="background-route">
         </div>
 
-        <section id="location-layout" class="location__layout">
-            <div class="location__top">
-                <div class="start__location">
-                    <div class="location__coord">Origen</div>
-                    <input id="start-input" class="start__input" type="text">
-                    <div id="start-coord" class="location__coordinate">-</div>
-                </div>
-                <div class="end__location">
-                    <div class="location__coord">Destino</div>
-                    <input id="end-input" class="end__input" type="text">
-                    <div id="end-coord" class="location__coordinate">-</div>
-                </div>
+        <div class="main__layout">
+            <div class="left__layout">
+                <section id="location-layout" class="location__layout">
+                    <div class="location__top">
 
-            </div>
-
-            <div class="location__middle">
-                <div class="location__middle__title">Combustible</div>
-                <div class="fuel__selection">
-                    <div id="fuel-gasoleo" class="fuel__gasoleo fuel--active">Gasoleo</div>
-                    <div id="fuel-gasolina" class="fuel__gasolina">Gasolina</div>
-                </div>
-            </div>
-
-            <div class="location__middle-2">
-                <div class="location__coord">Litros/100KM</div>
-                <input id="consumo" class="end__input" type="number" value="4.0" min="0.5" max="50.0">
-            </div>
-
-            <div class="go__location">
-
-                <button id="button-go" class="button__go">GO!<div class="button__img-container">
-                        <img class="button__img" src="./assets/img/destination.png" alt="destination">
-                    </div></button>
-            </div>
-
-            <div class="location__bottom">
-                <div class="location__coord">Información</div>
-                <section class="card__layout">
-                    <div class="card__top">
-                        <div class="card__img-container">
-                            <img class="card__img" src="./assets/img/car.png" alt="car">
+                        <div class="start__location">
+                            <div class="location__coord">Origen</div>
+                            <input id="start-input" class="start__input" type="text">
+                            <div id="start-coord" class="location__coordinate">-</div>
                         </div>
-                        <div id="path-time" class="card__time">- min</div>
+                        <div class="end__location">
+                            <div class="location__coord">Destino</div>
+                            <input id="end-input" class="end__input" type="text">
+                            <div id="end-coord" class="location__coordinate">-</div>
+                        </div>
+
                     </div>
-                    <div class="card__bottom">
-                        <div id="path-price" class="card__distance"> - €</div>
-                        <div id="path-distance" class="card__distance">- km</div>
+
+                    <div class="location__middle">
+                        <div class="location__middle__title">Combustible</div>
+                        <div class="fuel__selection">
+                            <div id="fuel-gasoleo" class="fuel__gasoleo fuel--active">Gasoleo</div>
+                            <div id="fuel-gasolina" class="fuel__gasolina">Gasolina</div>
+                        </div>
+                    </div>
+
+                    <div class="location__middle-2">
+                        <div class="location__coord">Litros/100KM</div>
+                        <input id="consumo" class="end__input" type="number" value="4.0" min="0.5" max="50.0">
+                    </div>
+
+                    <div class="go__location">
+
+                        <button id="button-go" class="button__go">GO!<div class="button__img-container">
+                                <img class="button__img" src="./assets/img/destination.png" alt="destination">
+                            </div></button>
+                    </div>
+
+                    <div class="location__bottom">
+                        <div class="location__coord">Información</div>
+                        <section class="card__layout">
+                            <div class="card__top">
+                                <div class="card__img-container">
+                                    <img class="card__img" src="./assets/img/car.png" alt="car">
+                                </div>
+                                <div id="path-time" class="card__time">- min</div>
+                            </div>
+                            <div class="card__bottom">
+                                <div id="path-price" class="card__distance"> - €</div>
+                                <div id="path-distance" class="card__distance">- km</div>
+                            </div>
+                        </section>
                     </div>
                 </section>
             </div>
-        </section>
+            <div class="right__layout">
+                <div class="map__title">Mapa</div>
+                <div id="map" class="map"></div>
+            </div>
+        </div>
     </main>
 </body>
 
