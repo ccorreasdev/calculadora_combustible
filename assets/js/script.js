@@ -15,8 +15,12 @@ const fuelGasolina = document.querySelector("#fuel-gasolina")
 const fuelConsumo = document.querySelector("#consumo");
 const pathRoute = document.querySelector("#path-route");
 const mapLayout = document.querySelector("#map");
-let map = L.map('map');
+let map = L.map('map').setView([40.416748, -3.703786], 6);
 
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
 
 fuelGasoleo.addEventListener("click", (e) => {
     fuelGasoleo.classList.add("fuel--active");
@@ -234,7 +238,6 @@ const generateMap = (lat1, lng1, lat2, lng2, locality1, locality2) => {
     let meanLat = (latExample + latExample2) / 2;
     let meanLng = (lngExample + lngExample2) / 2;
 
-    map.setView([meanLat, meanLng], 10);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,

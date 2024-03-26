@@ -424,11 +424,13 @@ html {
 }
 
 .main__layout {
+  width: 100%;
+  min-height: calc(100vh - 4rem);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   z-index: 2;
   border-radius: 20px;
@@ -437,14 +439,18 @@ html {
 }
 
 .left__layout {
+  flex-basis: 1;
+  min-height: calc(100vh - 8rem);
 }
 
 .right__layout {
+  padding: 5rem;
+  flex-basis: 1;
   display: flex;
   flex-direction: column;
-  flex-basis: 1;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  min-height: calc(100vh - 8rem);
 }
 
 .map {
