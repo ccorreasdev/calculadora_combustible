@@ -80,10 +80,6 @@ const loadFuelStations = async (locality = "Monforte del Cid") => {
                 rowClass = "table__row"
             } else {
                 rowClass = "table__row-2"
-                if (isFirstRow) {
-                    rowClass = "table__row-2 table__row-first"
-                    isFirstRow = !isFirstRow;
-                }
             }
 
             stationsTableRow.innerHTML += ` <div class="table__row-container">
