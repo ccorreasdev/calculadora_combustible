@@ -19,6 +19,7 @@ const map2Layout = document.querySelector("#map-2");
 const fuelIcon = document.querySelector("#fuel-icon");
 const stationsLayout = document.querySelector("#stations-layout");
 const closeWindow = document.querySelector("#close-window");
+const stationsTableRow = document.querySelector("#station-table-row");
 
 let map = L.map('map').setView([40.416748, -3.703786], 6);
 let map2 = L.map('map-2').setView([40.416748, -3.703786], 6);
@@ -44,7 +45,10 @@ const loadFuelStations = async () => {
     //     L.marker([station["Latitud"].replace(",", "."), station["Longitud (WGS84)"].replace(",", ".")]).addTo(map2);
     // });
 
+    stationsTableRow.innerHTML = "";
 
+    let isDifferentRow = false;
+    let rowClass = "table__row";
 
     for (let i = 0; i < fuelStations.length; i++) {
         // setTimeout(() => {
@@ -53,6 +57,24 @@ const loadFuelStations = async () => {
 
         if (fuelStations[i]["Provincia"] === "ALICANTE") {
             L.marker([fuelStations[i]["Latitud"].replace(",", "."), fuelStations[i]["Longitud (WGS84)"].replace(",", ".")]).addTo(map2);
+
+
+            if (isDifferentRow) {
+                rowClass = "table__row"
+            } else {
+                rowClass = "table__row-2"
+            }
+
+            stationsTableRow.innerHTML += ` <div class="table__row-container">
+            <div class="${rowClass}">${fuelStations[i]["Localidad"]}</div>
+            <div class="${rowClass}">${fuelStations[i]["Dirección"]}</div>
+            <div class="${rowClass}">${fuelStations[i]["Rótulo"]}</div>
+            <div class="${rowClass}">${fuelStations[i]["Precio Gasoleo A"]}€</div>
+            <div class="${rowClass}">${fuelStations[i]["Precio Gasolina 95 E5"]}€</div>
+            </div>`;
+
+            isDifferentRow = !isDifferentRow;
+
         }
 
     }

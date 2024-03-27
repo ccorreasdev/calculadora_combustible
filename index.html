@@ -23,11 +23,37 @@
 
         <div class="main__layout">
 
-            <div id="stations-layout" class="stations__layout">
+            <div id="stations-layout" class="stations__layout stations__layout--active">
                 <div class="map__title">Mapa
                     <div id="close-window" class="close__window">x</div>
                 </div>
-                <div id="map-2" class="map__stations"></div>
+                <div class="stations__container">
+                    <div class="stations__info">
+                        <div class="station__title">Ciudad</div>
+                        <input id="station-city" class="station__input" type="text">
+
+                        <div id="stations-table" class="stations__table">
+                            <div class="table__head">Localidad</div>
+                            <div class="table__head">Dirección</div>
+                            <div class="table__head">Rótulo</div>
+                            <div class="table__head">Precio gasoleo A</div>
+                            <div class="table__head">Precio gasolina 95</div>
+                        </div>
+                        <div id="station-table-row" class="stations__row-container">
+                            <div class="table__row-container">
+                                <div class="table__row">MONFORTE DEL CID</div>
+                                <div class="table__row">AUTOVIA A-31 KM. 216</div>
+                                <div class="table__row">BP</div>
+                                <div class="table__row">1,609€</div>
+                                <div class="table__row">1,729€</div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div id="map-2" class="map__stations"></div>
+                </div>
+
             </div>
             <div id="fuel-icon" class="fuel__icon-container">
                 <img class="fuel__icon" src="./assets/img/fuel.png" alt="fuel">

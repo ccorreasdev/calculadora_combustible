@@ -474,9 +474,14 @@ html {
   gap: 2rem;
 }
 
-.map__stations {
+.station__title {
   width: 100%;
-  height: calc(100% - 4rem);
+  height: 40px;
+  font-size: 1.6rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+  text-align: center;
 }
 
 .fuel__icon-container {
@@ -514,6 +519,82 @@ html {
 .stations__layout--active {
   opacity: 1;
   pointer-events: all;
+}
+
+.stations__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+}
+
+.stations__info {
+  width: 100%;
+}
+
+.station__input {
+  width: 100%;
+  height: 40px;
+  font-size: 1.8rem;
+  text-align: center;
+  transition: all 300ms ease-in-out;
+}
+
+.map__stations {
+  width: 100%;
+  height: calc(100% - 4rem);
+}
+
+.stations__table {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #0b7dcb;
+  padding-right: 2rem;
+}
+
+.table__head {
+  padding: 2rem;
+  font-size: 1.4rem;
+  color: white;
+  width: 20%;
+  text-align: center;
+}
+
+.table__row {
+  padding: 2rem;
+  font-size: 1.4rem;
+  color: black;
+  width: 20%;
+  text-align: center;
+}
+
+.table__row-2 {
+  padding: 2rem;
+  font-size: 1.4rem;
+  color: black;
+  width: 20%;
+  text-align: center;
+  background-color: #e9e9e9;
+}
+
+.stations__row-container {
+  width: 100%;
+  height: calc(100vh - 26rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  overflow-y: scroll;
+}
+
+.table__row-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 .close__window {
