@@ -531,8 +531,15 @@ html {
 }
 
 .stations__info {
-  width: 100%;
+  width: 50%;
+  height: calc(100% - 4rem);
+  background-color: red;
+}
+
+.stations__map {
+  width: 50%;
   height: 100%;
+  position: relative;
 }
 
 .station__input {
@@ -546,10 +553,20 @@ html {
 .map__stations {
   width: 100%;
   height: calc(100% - 4rem);
+  position: relative;
+  z-index: 1;
+}
+
+.stations__map-filter {
+  width: 100%;
+  background-color: #343434;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
 }
 
 .stations__table {
-  margin-top: 2rem;
   width: calc(100%);
   display: flex;
   flex-direction: row;
@@ -588,7 +605,7 @@ html {
 
 .stations__row-container {
   width: 100%;
-  height: calc(100% - 22rem);
+  height: calc(100% - 8rem);
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -600,7 +617,6 @@ html {
   min-width: fit-content;
   display: flex;
   flex-direction: row;
-  padding-top: 2rem;
 }
 
 .table__row-first {
@@ -626,11 +642,16 @@ html {
 
   .stations__info {
     height: 50%;
+    width: 100%;
+  }
+
+  .stations__map {
+    height: 50%;
+    width: 100%;
   }
 
   .map__stations {
-    height: 50%;
-    margin-bottom: 4rem;
+    height: calc(100% - 4rem);
   }
 
   .stations__container {
