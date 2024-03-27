@@ -532,6 +532,7 @@ html {
 
 .stations__info {
   width: 100%;
+  height: 100%;
 }
 
 .station__input {
@@ -587,7 +588,7 @@ html {
 
 .stations__row-container {
   width: 100%;
-  height: calc(100vh - 30rem);
+  height: calc(100% - 22rem);
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -603,7 +604,7 @@ html {
 }
 
 .table__row-first {
-  background-color: transparent;
+  background-color: red;
 }
 
 .close__window {
@@ -619,6 +620,23 @@ html {
 }
 
 @media (max-width: 950px) {
+  .stations__layout {
+    height: 100%;
+  }
+
+  .stations__info {
+    height: 50%;
+  }
+
+  .map__stations {
+    height: 50%;
+    margin-bottom: 4rem;
+  }
+
+  .stations__container {
+    flex-direction: column;
+  }
+
   .location__layout {
   }
 
@@ -643,6 +661,22 @@ html {
 }
 
 @media (max-width: 512px) {
+  .map {
+    width: 350px;
+  }
+
+  .table__head {
+    font-size: 1rem;
+  }
+
+  .table__row {
+    font-size: 1rem;
+  }
+
+  .table__row-2 {
+    font-size: 1rem;
+  }
+
   .fuel__selection {
     flex-direction: column;
   }
