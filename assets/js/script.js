@@ -20,6 +20,7 @@ const fuelIcon = document.querySelector("#fuel-icon");
 const stationsLayout = document.querySelector("#stations-layout");
 const closeWindow = document.querySelector("#close-window");
 const stationsTableRow = document.querySelector("#station-table-row");
+const stationCity = document.querySelector("#station-city");
 
 let map = L.map('map').setView([40.416748, -3.703786], 6);
 let map2 = L.map('map-2').setView([40.416748, -3.703786], 6);
@@ -35,8 +36,23 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map2);
 
 
+stationCity.addEventListener("input", async (e) => {
+    console.log("Writing ", e.target.value);
 
-const loadFuelStations = async () => {
+    await loadFuelStations(e.target.value);
+
+})
+
+const loadFuelStations = async (locality = "Monforte del Cid") => {
+    map2.eachLayer(function (layer) {
+        layer.remove();
+    });
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map2);
+
     const fuelStations = await getFuelPrices();
 
     console.log("AQUI:", fuelStations)
@@ -55,7 +71,7 @@ const loadFuelStations = async () => {
         //     L.marker([fuelStations[i]["Latitud"].replace(",", "."), fuelStations[i]["Longitud (WGS84)"].replace(",", ".")]).addTo(map2);
         // }, 10 * i)
 
-        if (fuelStations[i]["Provincia"] === "ALICANTE") {
+        if (fuelStations[i]["Localidad"] === locality.toUpperCase()) {
             L.marker([fuelStations[i]["Latitud"].replace(",", "."), fuelStations[i]["Longitud (WGS84)"].replace(",", ".")]).addTo(map2);
 
 
