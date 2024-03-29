@@ -635,6 +635,54 @@ html {
   background-color: #841010;
 }
 
+.chart__layout {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  z-index: 3;
+  border-radius: 20px;
+  transition: all 300ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.chart__layout--active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.chart__title {
+  color: white;
+  width: 100%;
+  height: 6rem;
+  text-align: center;
+  font-size: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(227, 227, 227);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
 @media (max-width: 950px) {
   .stations__layout {
     height: 100%;

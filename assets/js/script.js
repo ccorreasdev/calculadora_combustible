@@ -17,10 +17,154 @@ const pathRoute = document.querySelector("#path-route");
 const mapLayout = document.querySelector("#map");
 const map2Layout = document.querySelector("#map-2");
 const fuelIcon = document.querySelector("#fuel-icon");
+const chartIcon = document.querySelector("#chart-icon");
 const stationsLayout = document.querySelector("#stations-layout");
+const chartLayout = document.querySelector("#chart-layout");
 const closeWindow = document.querySelector("#close-window");
+const closeChart = document.querySelector("#close-chart");
 const stationsTableRow = document.querySelector("#station-table-row");
 const stationCity = document.querySelector("#station-city");
+const chartStations = document.querySelector("#chart");
+const data = [];
+
+
+const chart = () => {
+
+    // Specify the chart’s dimensions, based on a bar’s height.
+    const barHeight = 25;
+    const marginTop = 30;
+    const marginRight = 0;
+    const marginBottom = 10;
+    const marginLeft = 30;
+    const width = 928;
+    const height = Math.ceil((data.length + 0.1) * barHeight) + marginTop + marginBottom;
+
+    // Create the scales.
+    const x = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.precioMedio)])
+        .range([marginLeft, width - marginRight]);
+
+    const y = d3.scaleBand()
+        .domain(d3.sort(data, d => -d.precioMedio).map(d => d.provincia))
+        .rangeRound([marginTop, height - marginBottom])
+        .padding(0.1);
+
+    // Create the SVG container.
+    const svg = d3.create("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", [0, 0, width, height])
+        .attr("style", "max-width: 100%; height: auto; font: 30px sans-serif;");
+
+    // Append a rect for each provincia.
+    svg.append("g")
+        .attr("fill", "steelblue")
+        .selectAll()
+        .data(data)
+        .join("rect")
+        .attr("x", x(0))
+        .attr("y", (d) => y(d.provincia))
+        .attr("width", (d) => x(d.precioMedio) - x(0))
+        .attr("height", y.bandwidth());
+
+    // Append a label for each provincia.
+    svg.append("g")
+        .attr("fill", "white")
+        .attr("text-anchor", "end")
+        .selectAll()
+        .data(data)
+        .join("text")
+        .attr("x", (d) => x(d.precioMedio))
+        .attr("y", (d) => y(d.provincia) + y.bandwidth() / 2)
+        .attr("dy", "0.35em")
+        .attr("dx", -4)
+        .text((d) => `${d.precioMedio} €`) // Cambiar el formato del texto a euros
+        .call((text) => text.filter(d => x(d.precioMedio) - x(0) < 20) // short bars
+            .attr("dx", +4)
+            .attr("fill", "black")
+            .attr("text-anchor", "start"));
+
+    // Create the axes.
+    svg.append("g")
+        .attr("transform", `translate(0,${marginTop})`)
+        .call(d3.axisTop(x).ticks(width / 80).tickFormat(d => `${d} €`)) // Cambiar el formato del texto a euros
+        .call(g => g.select(".domain").remove());
+
+    svg.append("g")
+        .attr("transform", `translate(${marginLeft},0)`)
+        .call(d3.axisLeft(y).tickSizeOuter(0))
+        .selectAll(".tick text")
+        .style("font-size", "25px");
+
+    return svg.node();
+
+};
+
+
+const chart2 = () => {
+    // Declare the chart dimensions and margins.
+    const width = 3000;
+    const height = 1000;
+    const marginTop = 30;
+    const marginRight = 0;
+    const marginBottom = 30;
+    const marginLeft = 40;
+
+    // Declare the x (horizontal position) scale.
+    const x = d3.scaleBand()
+        .domain(d3.groupSort(data, ([d]) => -d.precioMedio, (d) => d.provincia)) // descending precioMedio
+        .range([marginLeft, width - marginRight])
+        .padding(0.1);
+
+    // Declare the y (vertical position) scale.
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(data, (d) => d.precioMedio)])
+        .range([height - marginBottom, marginTop]);
+
+    // Create the SVG container.
+    const svg = d3.create("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", [0, 0, width, height])
+        .attr("style", "max-width: 100%; height: auto;");
+
+    // Add a rect for each bar.
+    svg.append("g")
+        .attr("fill", "steelblue")
+        .selectAll()
+        .data(data)
+        .join("rect")
+        .attr("x", (d) => x(d.provincia))
+        .attr("y", (d) => y(d.precioMedio))
+        .attr("height", (d) => y(0) - y(d.precioMedio))
+        .attr("width", x.bandwidth());
+
+    // Add the x-axis and label.
+    svg.append("g")
+        .attr("transform", `translate(0,${height - marginBottom})`)
+        .call(d3.axisBottom(x).tickSizeOuter(0))
+        .selectAll("text")
+        .attr("y", function (d, i) {
+            return i % 2 === 0 ? 12 : 24; // Alternar el margen superior de las etiquetas
+        });
+
+    // Add the y-axis and label, and remove the domain line.
+    svg.append("g")
+        .attr("transform", `translate(${marginLeft},0)`)
+        .call(d3.axisLeft(y).tickFormat((y) => (y * 100).toFixed()))
+        .call(g => g.select(".domain").remove())
+        .call(g => g.append("text")
+            .attr("x", -marginLeft)
+            .attr("y", 10)
+            .attr("fill", "currentColor")
+            .attr("text-anchor", "start")
+            .text("↑ precioMedio (%)"));
+
+    // Return the SVG element.
+    return svg.node();
+}
+
+
 
 let map = L.map('map').setView([40.416748, -3.703786], 6);
 let map2 = L.map('map-2').setView([40.416748, -3.703786], 6);
@@ -35,6 +179,9 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map2);
 
+closeChart.addEventListener("click", (e) => {
+
+});
 
 stationCity.addEventListener("input", async (e) => {
     console.log("Writing ", e.target.value);
@@ -101,11 +248,19 @@ closeWindow.addEventListener("click", async (e) => {
     stationsLayout.classList.remove("stations__layout--active");
 });
 
+closeChart.addEventListener("click", (e) => {
+    chartLayout.classList.remove("chart__layout--active");
+})
+
 fuelIcon.addEventListener("click", async (e) => {
     await loadFuelStations();
     stationsLayout.classList.toggle("stations__layout--active");
 
 });
+
+chartIcon.addEventListener("click", (e) => {
+    chartLayout.classList.toggle("chart__layout--active");
+})
 
 fuelGasoleo.addEventListener("click", (e) => {
     fuelGasoleo.classList.add("fuel--active");
@@ -341,3 +496,49 @@ const generateMap = (lat1, lng1, lat2, lng2, locality1, locality2) => {
 
 }
 
+const loadChartData = async () => {
+    console.log("Load Chart Data");
+    let stationsList = await getFuelPrices();
+    let isDifferentProvince = true;
+    let lastProvince = "";
+    let counterProvince = 0;
+    let accumulatedGasoleo = 0;
+
+    stationsList.forEach((station) => {
+
+        console.log(station["Provincia"]);
+
+        if (station["Provincia"] != lastProvince) {
+            console.log("Ultima provincia: ", lastProvince);
+            console.log("Numero de estaciones en provincia: ", counterProvince);
+            console.log("Acumulado Gasoleo A: ", accumulatedGasoleo);
+            console.log("Media Gasoleo A: ", accumulatedGasoleo / counterProvince);
+            const dataProvince = {
+                provincia: lastProvince,
+                precioMedio: ((accumulatedGasoleo / counterProvince).toFixed(2)) * 1,
+            }
+            data.push(dataProvince);
+            lastProvince = station["Provincia"];
+            counterProvince = 0;
+            accumulatedGasoleo = 0;
+        } else {
+            counterProvince++;
+
+            if (station["Precio Gasoleo A"]) {
+                accumulatedGasoleo += parseFloat(station["Precio Gasoleo A"].replace(",", "."));
+            }
+
+        }
+
+
+    });
+
+    console.log("Data: ", data);
+    data.shift();
+    const svgElement = chart(data);
+
+    chartStations.appendChild(svgElement);
+
+};
+
+loadChartData();
